@@ -19,13 +19,19 @@
     @apply text-[44px] leading-[54px] font-[700] text-black
   }
   .text--para{
-    @apply text-[18px] leading-[30px] font-[400] text-orange-400 mt-[18px]
+    @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[18px]
   }
   .header{
     @apply bg-[url('./assets/images/mask.png')] bg-no-repeat bg-center bg-cover w-full h-[60px] leading-[100px]
   }
   .hero--section{
     @apply bg-[url('./assets/images/hero-bg.png')] bg-no-repeat bg-center bg-cover
+  }
+  .form--label{
+    @apply text-black font-semibold text-[16px] mb-2
+  }
+  .form--input{
+    @apply w-full px-4 py-3 border border-solid border-[#0066ff61] focus:outline-none focus:border-blue-700 text-[16px] leading-7 text-black placeholder:text-gray-700 cursor-pointer rounded-md
   }
 }
 
