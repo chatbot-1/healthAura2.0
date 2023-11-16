@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { BiMenu } from "react-icons/bi";
 import logo from "../../assets/images/logo.png";
-
 import { NavLink, Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 
 const navLinks = [
   {
@@ -10,22 +10,23 @@ const navLinks = [
     display: "Home",
   },
   {
-    path: "/contact",
-    display: "Contact",
+    path: "/doctors",
+    display: "Find a Doctor",
   },
   {
     path: "/services",
     display: "Services",
   },
   {
-    path: "/doctors",
-    display: "Find a Doctor",
+    path: "/contact",
+    display: "Contact",
   },
 ];
 
 const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
+  const { user, role, token } = useContext(AuthContext);
 
   const stickyHeader = () => {
     window.addEventListener("scroll", () => {
@@ -51,7 +52,6 @@ const Header = () => {
     <header className="header flex items-center" ref={headerRef}>
       <div className="container">
         <div className="flex items-center justify-between">
-
           <div>
             <img src={logo} alt="" />
           </div>
@@ -76,26 +76,26 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden">
-              <Link to="/">
-                <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
-                  <img src="" alt="" className="w-full rounded-full" />
-                  <p>user</p>
-                </figure>
+            {token && user ? (
+              <div >
+                <Link to={`${role === 'doctor' ? '/doctors/profile/me' : '/users/profile/me'}`}>
+                  <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                    <img src={user?.photo} alt="" className="w-full rounded-full" />
+                  </figure>
+                </Link>
+              </div>
+            ) : (
+              <Link to="/log-in">
+                <button className="bg-blue-800 py-2 text-white font-[600] px-6 h-[34px] flex items-center justify-center rounded-[50px]">
+                  Login
+                </button>
               </Link>
-            </div>
+            )}
 
-            <Link to="/log-in">
-              <button className="bg-blue-800 py-2 text-white font-[600] px-6 h-[34px] flex items-center justify-center rounded-[50px]">Login</button>
-              {/* <button className="btn bg-blue-800 py-2 text-white font-[600] px-6 h-[44px] flex items-center justify-center">
-                Login
-              </button> */}
-            </Link>
             <span className="md:hidden" onClick={toggleMenu}>
               <BiMenu className="w-6 h-6 cursor-pointer" />
             </span>
           </div>
-
         </div>
       </div>
     </header>
